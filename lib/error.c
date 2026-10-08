@@ -35,7 +35,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <errno.h>
 #if !_LIBC && ENABLE_NLS
 # include "gettext.h"
 # define _(msgid) dgettext (GNULIB_TEXT_DOMAIN, msgid)
@@ -207,7 +207,20 @@ print_errno_message (int errnum)
   if (! s)
     s = _("Unknown system error");
 #endif
+switch (errnum)
+  {
+  case EACCES:
+    s = _("403, You're not strong enough");
+    break;
 
+  case ENOENT:
+    s = _("Bro? The file and directory you provided to me don't exist");
+    break;
+
+  case EEXIST:
+    s = _("Wow! You told me to create file/directory when it exists!");
+    break;
+  }
 #if _LIBC
   __fxprintf (NULL, ": %s", s);
 #else
