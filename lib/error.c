@@ -220,6 +220,30 @@ switch (errnum)
   case EEXIST:
     s = _("Wow! You told me to create file/directory when it exists!");
     break;
+
+  case EPERM:
+    s = _("Permission denied: this operation has no aura");
+    break;
+
+  case ENOTDIR:
+    s = _("Path got cooked: one of its components is not a directory");
+    break;
+
+  case EISDIR:
+    s = _("That's a directory, bestie, not a file");
+    break;
+
+  case ENOSPC:
+    s = _("Disk space is cooked: no cap, there is no room left");
+    break;
+
+  case EROFS:
+    s = _("Read-only filesystem said no: zero rizz");
+    break;
+
+  case ENOTEMPTY:
+    s = _("Directory is not empty, fam");
+    break;
   }
 #if _LIBC
   __fxprintf (NULL, ": %s", s);
