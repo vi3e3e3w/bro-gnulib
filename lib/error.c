@@ -204,48 +204,49 @@ print_errno_message (int errnum)
 #endif
 
 #if !_LIBC
-  if (! s)
-    s = _("Unknown system error");
+  if (!s)
+    s = _("Bro! This is an error, but IDK what error it is.\n"
+          "Prefer to fix it! =D");
 #endif
+
 switch (errnum)
   {
-  case EACCES:
-    s = _("403, You're not strong enough");
-    break;
+ case EACCES:
+  s = _("Nope bro, your action have been refuse");
+  break;
 
-  case ENOENT:
-    s = _("Bro? The file and directory you provided to me don't exist");
-    break;
+case ENOENT:
+  s = _("Bro? That file or directory you provide doesn't exist");
+  break;
 
-  case EEXIST:
-    s = _("Wow! You told me to create file/directory when it exists!");
-    break;
+case EEXIST:
+  s = _("Wow! You told me to create it, but it already exists!");
+  break;
 
-  case EPERM:
-    s = _("Permission denied: this operation has no aura");
-    break;
+case EPERM:
+  s = _("Operation not permitted: this operation has no aura");
+  break;
 
-  case ENOTDIR:
-    s = _("Path got cooked: one of its components is not a directory");
-    break;
+case ENOTDIR:
+  s = _("Path got cooked: one of its components is not a directory");
+  break;
 
-  case EISDIR:
-    s = _("That's a directory, bestie, not a file");
-    break;
+case EISDIR:
+  s = _("That's a directory, bro, not a file");
+  break;
 
-  case ENOSPC:
-    s = _("Disk space is cooked: no cap, there is no room left");
-    break;
+case ENOSPC:
+  s = _("Disk space is cooked: no cap, there is no room left");
+  break;
 
-  case EROFS:
-    s = _("Read-only filesystem said no: zero rizz");
-    break;
+case EROFS:
+  s = _("Read-only filesystem said no: you can't write here");
+  break;
 
-  case ENOTEMPTY:
-    s = _("Directory is not empty, fam");
-    break;
-  }
-#if _LIBC
+case ENOTEMPTY:
+  s = _("Directory is not empty, fam");
+  break;
+if _LIBC
   __fxprintf (NULL, ": %s", s);
 #else
   fprintf (stderr, ": %s", s);
