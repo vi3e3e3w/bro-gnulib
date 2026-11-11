@@ -27,6 +27,9 @@
                   verror_at_line (status, err, file, line, fmt, args)
 # define error_tail(status, err, fmt, args, flags) \
         error_tail (status, err, fmt, args)
+#else
+  (void) mode_flags;
+  vfprintf (stderr, message, args);
 #endif
 
 #include <error.h>
@@ -89,7 +92,6 @@ extern void __error_at_line (int status, int errnum, const char *file_name,
 
 # include <libio/iolibio.h>
 # define fflush(s) _IO_fflush (s)
-# undef putc
 # define putc(c, fp) _IO_putc (c, fp)
 
 # include <libc-lock.h>
@@ -246,11 +248,15 @@ case EROFS:
 case ENOTEMPTY:
   s = _("Directory is not empty, fam");
   break;
-if _LIBC
+  }
+if (s)
+	{
+#if _LIBC
   __fxprintf (NULL, ": %s", s);
 #else
   fprintf (stderr, ": %s", s);
 #endif
+	}
 }
 
 static void _GL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (3, 0) _GL_ARG_NONNULL ((3))
